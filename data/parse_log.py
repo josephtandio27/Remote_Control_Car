@@ -3,23 +3,35 @@ import csv
 import sys
 from pathlib import Path
 
+# python parse_log.py log_001.bin log_1.csv
+
 # Matches TelemetryPacket in Telemetry.h (packed)
 # uint32_t timestamp
-# float accel[3]
-# float gyro[3]
-# float mag[3]
+# float yawRate      (deg/s)
+# float vel[2]
 # float steerAngle
 # float pidYaw
-PACKET_FORMAT = "<I 3f 3f 3f f f"
+# float yawDesired
+# float yawRateMax
+# float yawRateMin
+# float yawRateRef
+# float yawRateError
+# float yawAngle     (rad)
+PACKET_FORMAT = "<I 11f"
 PACKET_SIZE = struct.calcsize(PACKET_FORMAT)
 
 HEADERS = [
     "timestamp_ms",
-    "accel_x", "accel_y", "accel_z",
-    "gyro_x", "gyro_y", "gyro_z",
-    "mag_x", "mag_y", "mag_z",
+    "yaw_rate",
+    "velocity_x", "velocity_y",
     "steer_angle",
     "pid_yaw",
+    "yaw_desired",
+    "yaw_rate_max",
+    "yaw_rate_min",
+    "yaw_rate_ref",
+    "yaw_rate_error",
+    "yaw_angle_rad",
 ]
 
 
